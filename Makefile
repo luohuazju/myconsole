@@ -5,13 +5,13 @@ NAME=raspberrypi-myconsole
 docker-context:
 
 build: docker-context
-	docker build -t $(REPOSITORY)/$(IMAGE):$(TAG) .
+	docker build --no-cache -t $(IMAGE):$(TAG) .
 
 run:
-	docker run -d -p 8000:8000 -e RUNNING_ENV=stage --name $(NAME) $(REPOSITORY)/$(IMAGE):$(TAG)
+	docker run -d -p 8000:8000 -e RUNNING_ENV=stage --name $(NAME) $(IMAGE):$(TAG)
 
 debug:
-	docker run -ti -p 8000:8000 -e RUNNING_ENV=stage --name $(NAME) $(REPOSITORY)/$(IMAGE):$(TAG) /bin/bash
+	docker run -ti -p 8000:8000 -e RUNNING_ENV=stage --name $(NAME) $(IMAGE):$(TAG) /bin/bash
 
 clean:
 	docker stop ${NAME}
